@@ -13,12 +13,12 @@ import javax.persistence.Query;
 import model.Ordenador;
 import model.Persona;
 
-public class TestCrud {
+public class TestPersona {
 	private EntityManagerFactory emf;
 	private EntityManager em;
 	private EntityTransaction tx;
 	
-	public TestCrud() {
+	public TestPersona() {
 		// Obteniendo la factoría de EntityManagers
 		emf = Persistence.createEntityManagerFactory("PersonaJpa");
 		// Obteniendo la conexión (sesión)
@@ -101,10 +101,10 @@ public class TestCrud {
 	}
 	
 	public static void main(String[] args) {
-		TestCrud tc = new TestCrud();
-		tc.agregar();
-		tc.modificar();
-		tc.eliminar();
+		TestPersona tc = new TestPersona();
+//		tc.agregar();
+//		tc.modificar();
+//		tc.eliminar();
 		tc.listar();
 	}
 }
