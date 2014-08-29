@@ -38,7 +38,7 @@ public class TestPersona {
 		Persona p = new Persona();
 		p.setNombre("Nuevo");
 		p.setApellido("Nuevo");
-		p.setAltura(80.0);
+		p.setAltura(80.0f);
 		p.setFechanacimiento(new Date());
 
 		tx.begin();
@@ -83,7 +83,7 @@ public class TestPersona {
 		Persona p = new Persona();
 		p.setNombre("Nuevo");
 		p.setApellido("Nuevo");
-		p.setAltura(80.0);
+		p.setAltura(80.0f);
 		p.setFechanacimiento(new Date());
 
 		tx.begin();

@@ -31,7 +31,7 @@ public class Persona implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Integer id;
 
-	private Double altura;
+	private Float altura;
 
 	@Column(nullable=false, length=50)
 	private String apellido;
@@ -50,6 +50,15 @@ public class Persona implements Serializable {
 	public Persona() {
 	}
 
+	public Persona(String nombre, String apellido, 
+			Float altura, Date fechaNacimiento) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.altura = altura;
+		this.fechanacimiento = fechaNacimiento;
+	}
+		
+	
 	public Integer getId() {
 		return this.id;
 	}
@@ -58,11 +67,11 @@ public class Persona implements Serializable {
 		this.id = id;
 	}
 
-	public Double getAltura() {
+	public Float getAltura() {
 		return this.altura;
 	}
 
-	public void setAltura(Double altura) {
+	public void setAltura(Float altura) {
 		this.altura = altura;
 	}
 

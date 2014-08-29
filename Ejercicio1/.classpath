@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PersonaJpa"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/commons-logging"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/derby"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/persistence-api"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
