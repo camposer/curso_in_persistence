@@ -1,0 +1,28 @@
+h1 {
+	text-align: center;	
+}
+
+.tablaCentrada {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tablaFormulario td:nth-child(1) {
+	text-align: right;
+} 
+
+.tablaFormulario tr:last-child td {
+	text-align: center;
+}
+
+.tablaDatos th {
+	background-color: gray;
+}
+
+.tablaDatos tr:nth-child(odd) {
+	background-color: lightgray;
+}
+
+.tablaDatos tr:nth-child(even) {
+	background-color: darkgray;
+}
