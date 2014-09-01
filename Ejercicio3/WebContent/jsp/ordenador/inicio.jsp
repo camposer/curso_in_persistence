@@ -52,12 +52,12 @@
 	
 	<form name="formOrdenador" method="post">
 	
-	<% Ordenador ord = (Ordenador)session.getAttribute("ordenador"); %>
+	<c:set var="o" value="${sessionScope.ordenador}"/>
 	<input 
 		type="hidden" 
 		name="inputId" 
 		id="inputId"
-		value="<%= (ord!=null)?ord.getId():"" %>"/>
+		value="${o.id}"/>
 	<table class="tablaCentrada tablaFormulario">
 		<tr>
 			<td>Nombre:</td>
@@ -66,7 +66,7 @@
 					type="text" 
 					name="inputNombre" 
 					id="inputNombre"
-					value="<%= (ord!=null)?ord.getNombre():"" %>"/>
+					value="${o.nombre}"/>
 			</td>
 		</tr>
 		<tr>
@@ -76,7 +76,7 @@
 					type="text" 
 					name="inputSerial" 
 					id="inputSerial"
-					value="<%= (ord!=null)?ord.getSerial():"" %>"/>
+					value="${o.serial}"/>
 			</td>
 		</tr>
 		<tr>
@@ -85,7 +85,12 @@
 				<select name="inputPersona">
 					<option value="-1">Seleccione un dueño</option>
 					<c:forEach var="p" items="${requestScope.personas}">
-						<option value="${p.id}">
+						<c:set var="selected" value=""/>
+						<c:if test="${o.persona.id == p.id}">
+							<c:set var="selected" value="selected"/>
+						</c:if>
+					
+						<option value="${p.id}" ${selected}>
 							${p.nombre} ${p.apellido}
 						</option>
 					</c:forEach>
@@ -108,10 +113,7 @@
 		</tr>
 	</table>
 	</form>
-	<%
-		if (ord != null)
-			session.removeAttribute("ordenador");
-	%>
+	<% session.removeAttribute("ordenador"); %>
 	<br/>
 
 	<table id="tablaOrdenadores" class="tablaCentrada tablaDatos">
@@ -142,7 +144,7 @@
 						</a>
 					</td>
 					<td><a 
-							href="<%= getServletContext().getContextPath() %>/persona/Eliminar?id=${o.id}>" 
+							href="<%= getServletContext().getContextPath() %>/ordenador/Eliminar?id=${o.id}" 
 							onclick="return confirmar()">
 								eliminar
 						</a>
