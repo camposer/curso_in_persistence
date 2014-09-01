@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
-import model.Persona;
 import exception.AppDaoException;
 
 public abstract class GenericDao<T, K> {
@@ -33,7 +32,7 @@ public abstract class GenericDao<T, K> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Persona> obtenerTodos() {
+	public List<T> obtenerTodos() {
 		try {
 			return 	em
 						.createQuery("SELECT t FROM " + 

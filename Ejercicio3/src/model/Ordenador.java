@@ -26,7 +26,7 @@ public class Ordenador implements Serializable {
 	private String serial;
 
 	//bi-directional many-to-one association to Persona
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER) // Por defecto!
 	@JoinColumn(name="PERSONA_ID", nullable=false)
 	private Persona persona;
 
