@@ -45,7 +45,7 @@
 	<h1>Ordenadores</h1>
 	<div class="errores">
 	<c:forEach var="e" items="${sessionScope.errores}">
-				${e}"<br/>
+				${e}<br/>
 	</c:forEach>
 	<% session.removeAttribute("errores"); %>
 	</div>

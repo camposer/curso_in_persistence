@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import model.Ordenador;
+import model.Persona;
 import dao.OrdenadorDao;
 import exception.AppDaoException;
 import exception.AppServiceException;
@@ -19,6 +20,15 @@ public class OrdenadorService {
 
 	public void agregarOrdenador(Ordenador o) {
 		try {
+			// Obteniendo un objeto persistente, por tanto validando que existe!
+			Persona p = new PersonaService().obtenerPersona(
+					o.getPersona().getId());
+			
+			if (p == null)
+				throw new AppDaoException(); // Devolver un excepción especializada
+			
+			o.setPersona(p); // Reemplazando persona anterior por la referencia recién obtenida
+			
 			new OrdenadorDao().agregar(o);
 		} catch (AppDaoException e) {
 			throw new AppServiceException(e);
