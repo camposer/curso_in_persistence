@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import exception.AppDaoException;
 
@@ -93,8 +94,14 @@ public abstract class GenericDao<T, K> {
 			tx = em.getTransaction();
 			tx.begin();
 			
-			T t = em.find(clase, id);
-			em.remove(t);
+//			T obj = em.find(clase, id); => SELECT * FROM clase WHERE id = ?
+//			em.remove(obj); => DELETE FROM clase WHERE id = ?
+			
+			Query q = em.createQuery("DELETE FROM " + 
+					clase.getSimpleName() + 
+					" t WHERE t.id = :id");
+			q.setParameter("id", id);
+			q.executeUpdate();
 			
 			tx.commit();
 		} catch (PersistenceException pe) {
