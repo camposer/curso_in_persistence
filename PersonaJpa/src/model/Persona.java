@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -46,6 +47,9 @@ public class Persona implements Serializable {
 	//@OneToMany(mappedBy="persona", fetch=FetchType.EAGER)
 	@OneToMany(mappedBy="persona") // => LAZY
 	private List<Ordenador> ordenadores;
+
+	@Transient
+	public int cantidadOrdenadores;
 
 	public Persona() {
 	}
