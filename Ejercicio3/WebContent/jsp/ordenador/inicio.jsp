@@ -100,7 +100,7 @@
 		<tr>
 			<td colspan="2">
 				<c:choose>
-					<c:when test="${empty ord}"><!-- Valida si ordenador es igual a null -->
+					<c:when test="${empty o}"><!-- Valida si ordenador es igual a null -->
 						<input type="button" value="Agregar" onclick="guardar(AGREGAR)"/>
 					</c:when>
 					<c:otherwise>

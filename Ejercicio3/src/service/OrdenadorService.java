@@ -46,6 +46,15 @@ public class OrdenadorService {
 	public void modificarOrdenador(Ordenador o) {
 		// TODO Validar si la persona existe en BD
 		try {
+			// Obteniendo un objeto persistente, por tanto validando que existe!
+			Persona p = new PersonaService().obtenerPersona(
+					o.getPersona().getId());
+			
+			if (p == null)
+				throw new AppDaoException(); // Devolver un excepción especializada
+			
+			o.setPersona(p); // Reemplazando persona anterior por la referencia recién obtenida
+			
 			new OrdenadorDao().modificar(o);
 		} catch (AppDaoException e) {
 			throw new AppServiceException(e);
