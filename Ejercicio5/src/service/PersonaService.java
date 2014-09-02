@@ -2,7 +2,10 @@ package service;
 
 import java.util.List;
 
+import transaction.TransactionManager;
+import model.Ordenador;
 import model.Persona;
+import dao.OrdenadorDao;
 import dao.PersonaDao;
 import exception.AppDaoException;
 import exception.AppServiceException;
@@ -53,10 +56,29 @@ public class PersonaService {
 
 	public void eliminarPersona(Integer id) {
 		// TODO Validar si la persona existe en BD
+		TransactionManager tm = null;
 		try {
+			tm = new TransactionManager(); // new em y tx.begin()
+			PersonaDao personaDao = new PersonaDao(false); // El EntityManager no lo maneja el DAO (lo maneja un externo)
+			OrdenadorDao ordenadorDao = new OrdenadorDao(false); // em = null
+			tm.join(personaDao); // em = tm.getEntityManager()
+			tm.join(ordenadorDao);
+			
+			// Buscando la persona
+			Persona p = personaDao.obtener(id);
+
+			// Eliminando los ordenadores de la persona
+			List<Ordenador> ordenadores = p.getOrdenadores();
+			if (ordenadores != null) for (Ordenador o : ordenadores) 
+				ordenadorDao.eliminar(o.getId());
+
 			// Eliminando la persona
-			new PersonaDao().eliminar(id); 
+			personaDao.eliminar(id); 
+			
+			tm.commit();
 		} catch (AppDaoException e) {
+			if (tm != null)
+				tm.rollback();
 			throw new AppServiceException(e);
 		}
 	}
