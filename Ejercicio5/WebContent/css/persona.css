@@ -1,14 +1,19 @@
 #tablaPersonas td:nth-child(6),
-#tablaPersonas td:nth-child(7),
-#tablaPersonas td:nth-child(8) {
+#tablaPersonas td:nth-child(8),
+#tablaPersonas td:nth-child(9) {
 	text-align: center;
 }
 
-#tablaPersonas td:nth-child(7) a,
-#tablaPersonas td:nth-child(8) a {
+#tablaPersonas td:nth-child(8) a,
+#tablaPersonas td:nth-child(9) a {
 	color: black;
 }
 
 #tablaPersonas {
 	width: 400px;
+}
+
+#tituloOrdenadores {
+	text-align: left;
+	font-weight: bold; 
 }

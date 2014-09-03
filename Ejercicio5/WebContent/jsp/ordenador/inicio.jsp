@@ -43,6 +43,8 @@
 </head>
 <body>
 	<h1>Ordenadores</h1>
+	<%@ include file="/jsp/comun/cabecera.jsp" %>
+	
 	<div class="errores">
 	<c:forEach var="e" items="${sessionScope.errores}">
 				${e}<br/>

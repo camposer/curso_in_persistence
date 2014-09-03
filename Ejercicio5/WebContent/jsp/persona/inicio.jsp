@@ -1,3 +1,4 @@
+<%@page import="model.Ordenador"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Persona"%>
 <%@page import="java.util.List"%>
@@ -42,6 +43,8 @@
 </head>
 <body>
 	<h1>Personas</h1>
+	<%@ include file="/jsp/comun/cabecera.jsp" %>
+	
 	<div class="errores">
 	<%
 		List<String> errores = (List<String>)
@@ -72,6 +75,7 @@
 		id="inputId"
 		value="<%= (persona!=null)?persona.getId():"" %>"/>
 	<table class="tablaCentrada tablaFormulario">
+	
 		<tr>
 			<td>Nombre:</td>
 			<td>
@@ -114,6 +118,35 @@
 		</tr>
 		<tr>
 			<td colspan="2">
+				<!-- Ordenador -->
+				<hr/>
+				<div id="tituloOrdenadores">Ordenadores:</div>			
+				<table>
+					<tr>
+						<td>Nombre:</td>
+						<td>
+							<input 
+								type="text" 
+								name="inputNombreOrdenador" 
+								id="inputNombreOrdenador"
+								value=""/>
+						</td>
+					</tr>
+					<tr>
+						<td>Serial:</td>
+						<td>
+							<input 
+								type="text" 
+								name="inputSerialOrdenador" 
+								id="inputSerialOrdenador"
+								value=""/>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
 				<% 
 					if (persona == null) {
 				%>
@@ -146,6 +179,7 @@
 				<th>Apellido</th>
 				<th>Fecha</th>
 				<th>Altura</th>
+				<th>Ordenadores</th>
 				<th>Mostrar</th>
 				<th>Eliminar</th>			
 			</tr>
@@ -168,6 +202,19 @@
 						<td><%= p.getApellido() %></td>
 						<td><%= p.getFechanacimiento() %></td>
 						<td><%= p.getAltura() %></td>
+						<td>
+							<% 
+								List<Ordenador> ordenadores = (List<Ordenador>)
+									p.getOrdenadores();
+								if (ordenadores != null) for (Ordenador o : ordenadores) { 
+							%>
+								<a href="../ordenador/Mostrar?id=<%= o.getId() %>">
+									<%= o.getNombre() %> - <%= o.getSerial() %><br/>
+								</a>
+							<%
+								}
+							%>
+						</td>
 						<td><a
 								href="Mostrar?id=<%= p.getId() %>"> 
 									mostrar

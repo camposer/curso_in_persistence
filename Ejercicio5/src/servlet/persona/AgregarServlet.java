@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import exception.AppServiceException;
+import model.Ordenador;
 import model.Persona;
 import service.PersonaService;
+import exception.AppServiceException;
 
 @WebServlet("/persona/Agregar")
 public class AgregarServlet extends HttpServlet {
@@ -32,6 +33,8 @@ public class AgregarServlet extends HttpServlet {
 		String apellido = request.getParameter("inputApellido");
 		String sfecha = request.getParameter("inputFecha");
 		String saltura = request.getParameter("inputAltura");
+		String nombreOrdenador = request.getParameter("inputNombreOrdenador");
+		String serialOrdenador = request.getParameter("inputSerialOrdenador");
 
 		// Validaciones
 		if (nombre.trim().equals("")) // Validando nombre
@@ -48,13 +51,24 @@ public class AgregarServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			errores.add("Altura inválida");
 		}
+		if (nombreOrdenador.trim().equals("")) // Validando nombre de ordenador
+			errores.add("Nombre de ordenador inválido"); 
+		if (serialOrdenador.trim().equals("")) // Validando serial de ordenador
+			errores.add("Serial de ordenador inválido"); 
 		
 		if (errores.size() == 0) { // No hay errores
+			Ordenador o = new Ordenador();
+			o.setNombre(nombreOrdenador);
+			o.setSerial(serialOrdenador);
+			List<Ordenador> ordenadores = new ArrayList<Ordenador>();
+			ordenadores.add(o);
+			
 			// Agregando a la persona
 			Persona p = new Persona(nombre, apellido, altura, fecha);
+			p.setOrdenadores(ordenadores);
 			PersonaService ps = new PersonaService();
 			try {
-				ps.agregarPersona(p);
+				ps.agregarPersona(p, o);
 			} catch (AppServiceException e) {
 				errores.add("Error de acceso a datos");
 				e.printStackTrace();

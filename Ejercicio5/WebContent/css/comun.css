@@ -26,3 +26,7 @@ h1 {
 .tablaDatos tr:nth-child(even) {
 	background-color: darkgray;
 }
+
+#cabecera {
+	text-align: right;
+}

@@ -1,10 +1,11 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import transaction.TransactionManager;
 import model.Ordenador;
 import model.Persona;
+import transaction.TransactionManager;
 import dao.OrdenadorDao;
 import dao.PersonaDao;
 import exception.AppDaoException;
@@ -29,10 +30,37 @@ public class PersonaService {
 		}
 	}
 
+	public void agregarPersona(Persona p, Ordenador o ) {
+		List<Ordenador> ordenadores = new ArrayList<Ordenador>();
+		ordenadores.add(o);
+		p.setOrdenadores(ordenadores);
+		
+		agregarPersona(p);
+	}
+	
 	public void agregarPersona(Persona p) {
+		TransactionManager tm = null;
 		try {
-			new PersonaDao().agregar(p);
+			tm = new TransactionManager();
+			PersonaDao personaDao = new PersonaDao(false);
+			OrdenadorDao ordenadorDao = new OrdenadorDao(false);
+			tm.join(personaDao);
+			tm.join(ordenadorDao);
+			
+			// Agregar persona
+			personaDao.agregar(p);
+			
+			// Agregar ordenador
+			List<Ordenador> ordenadores = p.getOrdenadores();
+			if (ordenadores != null) for (Ordenador o : ordenadores) {
+				o.setPersona(p);
+				ordenadorDao.agregar(o);
+			}
+			
+			tm.commit();
 		} catch (AppDaoException e) {
+			if (tm != null)
+				tm.rollback();
 			throw new AppServiceException(e);
 		}
 	}
